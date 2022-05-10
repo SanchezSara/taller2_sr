@@ -1,6 +1,6 @@
 # React Boilerplate Material UI
 
-A simple react boilerplate apps built with React Typescript, redux and Material Ui.
+A simple react boilerplate apps built with React Typescript, redux and Material Ui..
 
 ## Working application
 
