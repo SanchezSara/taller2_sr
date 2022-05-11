@@ -66,7 +66,7 @@ function TopBar({ isDrawer, handleToogleDrawer }: IProps) {
         <div className={classes.grow} />
         <div className={classes.topBar_setting}>
           {/* <Language {...classes} /> */}
-          <DarkMode />
+          {/* <DarkMode /> */}
           <Account {...classes} />
         </div>
       </Toolbar>
