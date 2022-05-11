@@ -50,7 +50,7 @@ function TopBar({ isDrawer, handleToogleDrawer }: IProps) {
         >
           <MenuIcon />
         </IconButton>
-        <div className={classes.search}>
+        {/* <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
@@ -62,10 +62,10 @@ function TopBar({ isDrawer, handleToogleDrawer }: IProps) {
             }}
             inputProps={{ 'aria-label': 'search' }}
           />
-        </div>
+        </div> */}
         <div className={classes.grow} />
         <div className={classes.topBar_setting}>
-          <Language {...classes} />
+          {/* <Language {...classes} /> */}
           <DarkMode />
           <Account {...classes} />
         </div>

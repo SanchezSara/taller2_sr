@@ -109,10 +109,10 @@ function NavBar({ isDrawer }: IProps) {
       <div className={classes.drawerHeader}>
         <Link to={PATH_NAME.ROOT} className={classes.navBar_link}>
           <img src="/assets/images/logo.png" alt="Logo" title="logo" />
-          <div>
+          {/* <div>
             Material UI <br />
             <span className={classes.version}>v.{VERSION_PROJECT.version}</span>
-          </div>
+          </div> */}
         </Link>
       </div>
       <Divider />
