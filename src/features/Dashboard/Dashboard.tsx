@@ -148,7 +148,7 @@ function Dashboard() {
   return (
     <div>
       <h2>Report</h2>
-      <Grid container>
+      {/* <Grid container>
         <Grid item xs={12}>
           <Paper>
             <Box m={2}>
@@ -189,7 +189,7 @@ function Dashboard() {
             </Box>
           </Paper>
         </Grid>
-      </Grid>
+      </Grid> */}
       <Grid container spacing={3}>
         {/* <Grid item xs={12} sm={12} md={7}>
           <Paper>
@@ -255,6 +255,9 @@ function Dashboard() {
                       <TableRow>
                         <TableCell>Establecimiento</TableCell>
                         <TableCell>Rating</TableCell>
+                        <TableCell>Ciudad</TableCell>
+                        <TableCell>Direccion</TableCell>
+                        <TableCell>Codigo Postal</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -264,6 +267,9 @@ function Dashboard() {
                             {row.business.name}
                           </TableCell>
                           <TableCell>{row.score}</TableCell>
+                          <TableCell>{row.business.city}</TableCell>
+                          <TableCell>{row.business.address}</TableCell>
+                          <TableCell>{row.business.postal_code}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>

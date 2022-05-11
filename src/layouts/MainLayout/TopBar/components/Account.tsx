@@ -70,7 +70,7 @@ function Account({ ...classes }) {
       >
         <div className={classes.textRole}>{role}</div>
         <Divider />
-        <MenuItem>My account</MenuItem>
+        {/* <MenuItem>My account</MenuItem> */}
         <MenuItem className={classes.menuProfile} onClick={_handleLogout}>
           {translate('LOGOUT')}
         </MenuItem>
