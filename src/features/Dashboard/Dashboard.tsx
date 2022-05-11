@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
@@ -62,17 +63,32 @@ interface User {
   id: string;
   user_id: string;
   business_id: string;
+  business: Business;
   score: number;
+}
+
+interface Business {
+  id_: string;
+  name: string;
+  address: string;
+  city: string;
+  state: string;
+  postal_code: number;
+  latitude: number;
+  longitude: number;
+  stars: number;
 }
 
 function Dashboard() {
   // const commonStyles = useCommonStyles();
   const [users, setUsers] = useState<User[]>();
+  const [business, setBusiness] = useState<Business[]>();
 
   const getUsers = async () => {
     try {
       const user = authService.getUser();
       const parseUser = JSON.parse(user);
+      const fullUsers: User[] = [];
       if (parseUser) {
         const response = await axios.post('https://sr-taller-1-backend.herokuapp.com/v2/predictions', {
           distance: 25,
@@ -82,7 +98,15 @@ function Dashboard() {
           longitude: -86.775635,
           user_id: parseUser.username,
         });
-        setUsers(response.data.response);
+        for (const userObj of response.data.response) {
+          const businessResponse = await axios.get(
+            `https://sr-taller-1-backend.herokuapp.com/v2/businesses/${userObj.business_id}`,
+          );
+          fullUsers.push({ ...userObj, business: businessResponse.data.response });
+        }
+
+        setUsers(fullUsers);
+        console.log(fullUsers);
       }
     } catch (error) {
       console.error(error);
@@ -94,6 +118,32 @@ function Dashboard() {
       getUsers();
     }
   }, []);
+
+  // const getBusiness = async () => {
+  //   const business_user: Business[] = [];
+  //   try {
+  //     const user = authService.getUser();
+  //     const parseUser = JSON.parse(user);
+  //     users.map(async (b) => {
+  //       if (parseUser && b) {
+  //         const response = await axios.post('https://sr-taller-1-backend.herokuapp.com/v2/businesses/', {
+  //           business_id: b.business_id,
+  //         });
+  //         business_user.push(response.data.response);
+  //       }
+  //     });
+  //     setBusiness(business_user);
+  //     console.log(business_user);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (!users) {
+  //     getBusiness();
+  //   }
+  // }, [users]);
 
   return (
     <div>
@@ -196,22 +246,22 @@ function Dashboard() {
           <Paper>
             <Box m={2}>
               <Grid container item xs={12}>
-                <h2>Users</h2>
+                <h2>Te recomendamos</h2>
               </Grid>
               {users && users.length > 0 && (
                 <TableContainer>
                   <Table aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        <TableCell>User</TableCell>
-                        <TableCell>Score</TableCell>
+                        <TableCell>Establecimiento</TableCell>
+                        <TableCell>Rating</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {users.map((row, idx) => (
                         <TableRow key={idx}>
                           <TableCell component="th" scope="row">
-                            {row.id}
+                            {row.business.name}
                           </TableCell>
                           <TableCell>{row.score}</TableCell>
                         </TableRow>
