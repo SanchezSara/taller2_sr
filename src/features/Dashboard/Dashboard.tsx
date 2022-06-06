@@ -60,11 +60,13 @@ const options: ApexOptions = {
 const series = [44, 55, 13];
 
 interface User {
-  id: string;
-  user_id: string;
-  business_id: string;
-  business: Business;
-  score: number;
+  // id: string;
+  // user_id: string;
+  // business_id: string;
+  // business: Business;
+  // score: number;
+  movie_id: number;
+  prediction: number;
 }
 
 interface Business {
@@ -90,23 +92,28 @@ function Dashboard() {
       const parseUser = JSON.parse(user);
       const fullUsers: User[] = [];
       if (parseUser) {
-        const response = await axios.post('https://sr-taller-1-backend.herokuapp.com/v2/predictions', {
-          distance: 25,
-          hours: 13,
-          latitude: 36.162632,
+        const response = await axios.post('https://sr-taller-1-backend.herokuapp.com/v3/predictions', {
+          // distance: 25,
+          // hours: 13,
+          // latitude: 36.162632,
           limit: 10,
-          longitude: -86.775635,
-          user_id: parseUser.username,
+          // longitude: -86.775635,
+          // user_id: parseUser.username,
+          user_id: 1,
         });
-        for (const userObj of response.data.response) {
-          const businessResponse = await axios.get(
-            `https://sr-taller-1-backend.herokuapp.com/v2/businesses/${userObj.business_id}`,
-          );
-          fullUsers.push({ ...userObj, business: businessResponse.data.response });
-        }
 
-        setUsers(fullUsers);
-        console.log(fullUsers);
+        // for (const userObj of response.data.response) {
+        //  const businessResponse = await axios.get(
+        //    `https://sr-taller-1-backend.herokuapp.com/v2/businesses/${userObj.business_id}`,
+        //  );
+        //  fullUsers.push({ ...userObj, business: businessResponse.data.response });
+        // }
+
+        // setUsers(fullUsers);
+        // console.log(fullUsers);
+
+        setUsers(response.data.response);
+        console.log(response.data.response);
       }
     } catch (error) {
       console.error(error);
@@ -253,23 +260,17 @@ function Dashboard() {
                   <Table aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        <TableCell>Establecimiento</TableCell>
-                        <TableCell>Rating</TableCell>
-                        <TableCell>Ciudad</TableCell>
-                        <TableCell>Direccion</TableCell>
-                        <TableCell>Codigo Postal</TableCell>
+                        <TableCell>Movie Id</TableCell>
+                        <TableCell>Prediction</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {users.map((row, idx) => (
                         <TableRow key={idx}>
                           <TableCell component="th" scope="row">
-                            {row.business.name}
+                            {row.movie_id}
                           </TableCell>
-                          <TableCell>{row.score}</TableCell>
-                          <TableCell>{row.business.city}</TableCell>
-                          <TableCell>{row.business.address}</TableCell>
-                          <TableCell>{row.business.postal_code}</TableCell>
+                          <TableCell>{row.prediction}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>

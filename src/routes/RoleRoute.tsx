@@ -18,7 +18,7 @@ const RoleRoute: FC<IProps> = ({ children, requireRoles = [] }) => {
 
   useEffect(() => {
     if (!role || requireRoles.length === 0) return;
-
+    console.log(requireRoles, role);
     const checkRole = requireRoles.includes(role);
     if (!checkRole) {
       history.replace(PATH_NAME.ERROR_403);

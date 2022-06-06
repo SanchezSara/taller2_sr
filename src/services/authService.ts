@@ -20,12 +20,12 @@ class AuthService {
 
   loginWithUsername = async (username: string, roleUser: string): Promise<any> => {
     try {
-      const response = await axios.get(`https://sr-taller-1-backend.herokuapp.com/v2/users/user_${username}`);
+    //  const response = await axios.get(`https://sr-taller-1-backend.herokuapp.com/v2/users/user_${username}`);
       const accessToken = '1929312831903129321';
       this.setSession('accessToken', accessToken);
-      const userStringify = JSON.stringify({ username, roleUser });
+      const userStringify = JSON.stringify({ username: '1', roleUser: 'ADMIN' });
       this.setSession('user', userStringify);
-      return { user: response.data.response.id_, role: roleUser };
+      return { user: '1', role: 'ADMIN' };
     } catch (error) {
       this.setSession('error', 'Nombre de usuario inválido');
       return { error: 'Nombre de usuario inválido' };
